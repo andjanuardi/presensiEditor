@@ -13,7 +13,7 @@ export default function Laporan() {
   const [selPeriode, setSelPeriode] = useState("");
   const [selPegawai, setSelPegawai] = useState("");
 
-  async function getDataLaporan() {
+  const getDataLaporan = async () => {
     const data = (
       await axios.post("/api/laporan", { selSatker, selPeriode, selPegawai })
     ).data;
@@ -26,7 +26,7 @@ export default function Laporan() {
       setSelPegawai(data.default.uuid);
       getDataPegawai(data.default.satker, data.default.periode);
     }
-  }
+  };
 
   async function getDataPegawai(satker, periode) {
     try {
@@ -86,7 +86,7 @@ export default function Laporan() {
     if (selSatker.length > 0 || selPeriode.length > 0) {
       getDataPegawai(selSatker, selPeriode);
     }
-  }, [selSatker]);
+  }, [selSatker, selPeriode]);
 
   useEffect(() => {
     getDataLaporan();
